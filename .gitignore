@@ -1,0 +1,20 @@
+# General
+*.log
+*.pdf
+*.png
+
+# IDE
+.idea/ # PyCharm settings
+.vscode/ # VSCode settings
+
+# Python
+*.pyc
+env/
+venv/
+
+# Databases
+*.sqlite3
+
+# JavaScript
+node_modules/
+build/ # Webpack build output
