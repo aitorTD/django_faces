@@ -1,8 +1,8 @@
 from django import forms
-from .models import Document
+from .models import Images
 
 class DocumentForm(forms.ModelForm):
     class Meta:
-        model = Document
+        model = Images
         fields = ['file']
 

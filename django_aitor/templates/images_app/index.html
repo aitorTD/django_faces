@@ -14,7 +14,8 @@
     </form>
     <br>
     <br>
-    {% load static %}
-    <img src="{% static 'Me_4.JPG' %}" alt="My image">
+    <a href="{% url 'display_pics' %}">All pics</a>
+    <br>
+    <a href="{% url 'delete' %}">Delete all</a>
 </body>
 </html>

@@ -27,6 +27,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('pics/', views.pics, name='display_pics')
+    path('pics/', views.pics, name='display_pics'),
+    path('pic/<int:id>', views.pic, name='pic'),
+    path('delete', views.delete, name='delete')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
