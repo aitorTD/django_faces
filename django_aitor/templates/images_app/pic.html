@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css" />
+    <script src="https://unpkg.com/jcrop"></script>
+
     <title>Editar foto {{ pic.id }}</title>
-</head>
-<body>
+  </head>
+  <body>
+    <a href="{% url 'display_pics' %}">  << Atrás </a>
     FOTO {{ pic.id }}
-    <br>
-    <img src="{{ pic.file.url }}" alt="img" style="max-width: 400px;">
-</body>
+    <br />
+    <img src="{{ pic.file.url }}" id="target" />
+    <br />
+    <form>
+      <input type="hidden" id="x" name="x" />
+      <input type="hidden" id="y" name="y" />
+      <input type="hidden" id="w" name="w" />
+      <input type="hidden" id="h" name="h" />
+      <input type="submit" value="Blur" />
+    </form>
+  </body>
+  <script defer>
+    const jcrop = Jcrop.attach("target", {
+      multi: true,
+    });
+
+    // $("#target").Jcrop({
+    //   onSelect: function (c) {
+    //     $("#x").val(c.x);
+    //     $("#y").val(c.y);
+    //     $("#w").val(c.w);
+    //     $("#h").val(c.h);
+    //   },
+    // });
+
+    let rect = Jcrop.Rect.create(100, 100, 50, 50);
+    jcrop.newWidget(rect, {});
+    rect = Jcrop.Rect.create(200, 200, 50, 50);
+    jcrop.newWidget(rect, {});
+
+    let contador = 0;
+    jcrop.listen("crop.change", (widget,event) => {
+        contador ++;
+        console.log('jcrop crop.change ' + contador);
+        let crops = jcrop.crops;
+        for (const crop of crops) {
+            console.log(crop.pos.x, crop.pos.y, crop.pos.w, crop.pos.h);
+        }
+    
+    });
+  </script>
 </html>

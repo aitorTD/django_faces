@@ -36,4 +36,3 @@ def pic(request, id):
 def delete(request):
     Images.objects.all().delete()
     return redirect('index')
-
