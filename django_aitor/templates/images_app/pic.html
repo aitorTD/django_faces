@@ -12,18 +12,22 @@
     <title>Editar foto {{ pic.id }}</title>
   </head>
   <body>
-    <a href="{% url 'display_pics' %}">  << Atrás </a>
+    <a href="{% url 'display_pics' %}"> << Atrás </a>
     FOTO {{ pic.id }}
     <br />
     <img src="{{ pic.file.url }}" id="target" />
     <br />
-    <form>
+
+    <!-- CON ESTE FORMULARIO PODEMOS ENVIAR A DJANGO LAS COORDENADAS Y LA ID DE LA FOTO PARA APLICAR EL BLUR A LAS PARTES SELECCIONADAS, PARA ENVIARLO CON LOS VALORES PODEMOS SUSTITUIR EL VALUE DE LOS INPUTS CON JS PARA RECOGERLOS EN DJANGO -->
+    <!-- <form>
+      <input type="hidden" id="id" name="id" />
       <input type="hidden" id="x" name="x" />
       <input type="hidden" id="y" name="y" />
       <input type="hidden" id="w" name="w" />
       <input type="hidden" id="h" name="h" />
       <input type="submit" value="Blur" />
-    </form>
+    </form> -->
+    <button id="blur">Blur</button>
   </body>
   <script defer>
     const jcrop = Jcrop.attach("target", {
@@ -39,20 +43,47 @@
     //   },
     // });
 
-    let rect = Jcrop.Rect.create(100, 100, 50, 50);
-    jcrop.newWidget(rect, {});
-    rect = Jcrop.Rect.create(200, 200, 50, 50);
-    jcrop.newWidget(rect, {});
+    // let rect = Jcrop.Rect.create(100, 100, 50, 50);
+    // jcrop.newWidget(rect, {});
+    // rect = Jcrop.Rect.create(200, 200, 50, 50);
+    // jcrop.newWidget(rect, {});
+
+    let rects = [
+      Jcrop.Rect.create(100, 100, 50, 50),
+      Jcrop.Rect.create(200, 200, 50, 50),
+    ];
+    jcrop.newWidget(rects[0], {});
+    jcrop.newWidget(rects[1], {});
+
+    // let contador = 0;
+    // jcrop.listen("crop.change", (widget, event) => {
+    //   contador++;
+    //   console.log("jcrop crop.change " + contador);
+    //   let crops = jcrop.crops;
+    //   for (const crop of crops) {
+    //     console.log(crop.pos.x, crop.pos.y, crop.pos.w, crop.pos.h);
+    //   }
+    // });
 
     let contador = 0;
-    jcrop.listen("crop.change", (widget,event) => {
-        contador ++;
-        console.log('jcrop crop.change ' + contador);
-        let crops = jcrop.crops;
-        for (const crop of crops) {
-            console.log(crop.pos.x, crop.pos.y, crop.pos.w, crop.pos.h);
-        }
-    
+    jcrop.listen("crop.change", (widget, event) => {
+      contador++;
+      console.log("jcrop crop.change " + contador);
+      let crops = jcrop.crops;
+      crops.forEach((crop) => {
+        console.log(crop.pos.x, crop.pos.y, crop.pos.w, crop.pos.h);
+      });
     });
+
+
+    $('#blur').click(function() {
+      alert('Hola');
+    }
+    );
+
+
+
+
+
   </script>
 </html>

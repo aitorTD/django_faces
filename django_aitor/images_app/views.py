@@ -23,9 +23,6 @@ def index(request):
 
 def pics(request):
     pictures = Images.objects.all()
-    context = {
-        'pictures': pictures
-    }
     return render(request, 'images_app/display_pics.html', {'context': pictures})
 
 def pic(request, id):
