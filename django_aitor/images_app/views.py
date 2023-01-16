@@ -26,6 +26,7 @@ def pics(request):
     return render(request, 'images_app/display_pics.html', {'context': pictures})
 
 def pic(request, id):
+    # Reconocer caras y pasar las coordenadas para poner el recuadro de blur en las caras que se detecten.
     pic = Images.objects.get(id = id)
     return render(request, 'images_app/pic.html', {'pic': pic})
     
