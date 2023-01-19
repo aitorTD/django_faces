@@ -45,11 +45,9 @@ def aws(request, id):
     filtered_faces = list(map(lambda face: face['BoundingBox'], filtered_faces))
     return JsonResponse(filtered_faces, safe = False)
     
-
 def delete(request):
     Images.objects.all().delete()
     return redirect('index')
-
 
 def ajax(request):
     list = []
