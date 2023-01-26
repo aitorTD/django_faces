@@ -32,6 +32,7 @@ urlpatterns = [
     path('aws_pic/<int:id>', views.aws, name='aws'),
     path('ajax', views.ajax, name='ajax'),
     path('usa_ajax', views.usa_ajax, name='usa_ajax'),
+    path('blur/<int:id>', views.blur, name='blur'),
     path('delete', views.delete, name='delete')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

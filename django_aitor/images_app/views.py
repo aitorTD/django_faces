@@ -3,6 +3,8 @@ from .forms import DocumentForm
 from .models import Images
 from django.http import JsonResponse
 import boto3
+import json
+from django.middleware.csrf import get_token
 
 
 def index(request):
@@ -29,7 +31,8 @@ def pics(request):
 
 def pic(request, id):   
     pic = Images.objects.get(id = id)
-    return render(request, 'images_app/pic.html', {'pic': pic})
+    csrf_token = get_token(request)
+    return render(request, 'images_app/pic.html', {'pic': pic, 'csrf_token': csrf_token})
 
 
 def aws(request, id):
@@ -57,3 +60,10 @@ def ajax(request):
 
 def usa_ajax(request):
     return render(request, 'images_app/usa_ajax.html')
+
+
+def blur(request, id):
+    image = Images.objects.get(id = id)
+    body = json.loads(request.body)
+    coords = body.get('coords')
+    print(coords)

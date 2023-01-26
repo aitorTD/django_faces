@@ -17,6 +17,7 @@
     <br />
     <img src="{{ pic.file.url }}" id="target" />
     <br />
+
     <button id="blur">Blur</button>
   </body>
   <script defer>
@@ -47,18 +48,29 @@
     
     processImage();
 
-    let contador = 0;
-    jcrop.listen("crop.change", (widget, event) => {
-      contador++;
-      console.log("jcrop crop.change " + contador);
-      let crops = jcrop.crops;
-      crops.forEach((crop) => {
-        console.log(crop.pos.x, crop.pos.y, crop.pos.w, crop.pos.h);
-      });
-    });
+    const send = async (coords) => {
+      const id = '{{ pic.id }}';
+      const csrf_token = "{{ csrf_token }}"
+      const options = {
+          method: 'POST',
+          body: JSON.stringify({ coords }),
+          headers: {
+              'X-CSRFToken': csrf_token,
+              'Content-Type': 'application/json'
+          }
+      };
+      fetch(`/blur/${id}`, options)
+  }
+
 
     $("#blur").click(function () {
-      alert("Hola");
+      let crops = jcrop.crops;
+      const coords = []
+      crops.forEach((crop) => {
+        coords.push({x: crop.pos.x, y: crop.pos.y, w: crop.pos.w, h: crop.pos.h})
+      });
+      console.log(coords);
+      send(coords);
     });
   </script>
 </html>
