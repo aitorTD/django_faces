@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from .forms import DocumentForm
 from .models import Images
 from django.http import JsonResponse
+from django.http import HttpResponse
 import boto3
 import json
 from django.middleware.csrf import get_token
+from PIL import Image, ImageFilter
+from django.core.cache import cache
 
 
 def index(request):
@@ -44,7 +47,7 @@ def aws(request, id):
     with open('.' + pic.file.url, 'rb') as image_file:
         image = image_file.read()
     response = rekognition.detect_faces(Image = { 'Bytes': image }, Attributes = [ 'ALL' ])
-    filtered_faces = filter(lambda face: face["AgeRange"]["Low"] >= 18, response['FaceDetails'])
+    filtered_faces = filter(lambda face: face["AgeRange"]["Low"] < 18, response['FaceDetails'])
     filtered_faces = list(map(lambda face: face['BoundingBox'], filtered_faces))
     return JsonResponse(filtered_faces, safe = False)
     
@@ -64,6 +67,25 @@ def usa_ajax(request):
 
 def blur(request, id):
     image = Images.objects.get(id = id)
+    path = image.file.path
+    #print('IMAGE.FILE.PATH -------------------- ', image.file.path)
+    #print('IMAGE.FILE.URL -------------------- ', image.file.url)
+    csrf_token = get_token(request)
+    img = Image.open(image.file.path)
     body = json.loads(request.body)
     coords = body.get('coords')
-    print(coords)
+    for coord in coords:
+        x = int(coord['x'])
+        y = int(coord['y'])
+        w = int(coord['w'])
+        h = int(coord['h'])
+        region = img.crop((x, y, x + w, y + h))
+        for i in range(0, 20):
+            region = region.filter(ImageFilter.BLUR)
+        img.paste(region, (x, y, x + w, y + h))
+
+    #print('IMAGE.FILE.PATH -------------------- ', path)
+    img.save(path)
+    #print('SAVED')
+
+    return redirect(request, 'images_app/pic.html', {'pic': image, 'csrf_token': csrf_token})
