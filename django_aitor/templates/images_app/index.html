@@ -7,15 +7,17 @@
         padding: 0;
         margin: 0;
         background-color: antiquewhite;
+        font-family: "Courier New", Courier, monospace;
+        font-weight: 800;
       }
 
       .formulario {
-        margin-top: 100px;
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         text-transform: uppercase;
         height: 200px;
         margin-bottom: 100px;
@@ -25,12 +27,12 @@
       .submit {
         border: 1px solid black;
         background-color: black;
+        border-radius: 3px;
         color: white;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: 800;
         padding: 5px;
-        
       }
 
       .submit:hover {
@@ -38,8 +40,8 @@
         padding: 7px;
       }
 
-      input[type=file] {
-        font-family: 'Courier New', Courier, monospace;
+      input[type="file"] {
+        font-family: "Courier New", Courier, monospace;
       }
 
       .menu {
@@ -60,14 +62,15 @@
       .danger {
         background-color: red;
         border: 1px solid red;
+        font-weight: 800;
       }
 
       a {
         color: white !important;
         text-decoration: none;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: 800;
       }
 
       .menu-div {
@@ -77,6 +80,46 @@
         justify-content: space-around;
         align-items: center;
       }
+
+      .titulo {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif !important;
+        font-size: 3rem;
+        letter-spacing: 3px;
+      }
+
+      .com {
+        font-size: 10px !important;
+      }
+
+      .title-blur {
+        /* color: red !important; */
+        font-size: 80px;
+        /* background: -webkit-linear-gradient(rgb(255, 251, 132), #333);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; */
+        filter: blur(4px);
+        -webkit-filter: blur(4px);
+      }
+
+      footer {
+        width: 100%;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        padding-top: 80px;
+      }
+
+
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,6 +127,9 @@
     <title>Faces</title>
   </head>
   <body>
+    <div class="titulo">
+      <div>Cariño, le he hecho <span class="title-blur">BLUR</span> a LOS NIÑOS<span class="com">.com</span> </div>
+    </div>
     <form method="post" enctype="multipart/form-data" class="formulario">
       {% csrf_token %} {{ form }}
       <input class="submit" type="submit" value="Upload" />
@@ -92,5 +138,13 @@
       <a class="menu" href="{% url 'display_pics' %}">All pics</a>
       <a class="menu danger" href="{% url 'delete' %}">Delete all</a>
     </div>
+
+    <footer>
+      <div>
+        <span>Aitor Trillo Díaz</span>
+        <span>&#169;</span>
+        <span>2023</span>
+      </div>
+    </footer>
   </body>
 </html>

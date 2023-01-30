@@ -1,6 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+      body {
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: antiquewhite !important;
+        font-family: 'Courier New', Courier, monospace !important;
+      }
+
+      .formulario {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        height: 200px;
+        margin-bottom: 100px;
+        font-size: 1.3rem;
+      }
+
+      .submit {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 5px;
+        
+      }
+
+      .submit:hover {
+        cursor: pointer;
+        padding: 7px;
+      }
+
+      input[type=file] {
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .menu {
+        border: 1px solid black;
+        background-color: black;
+        border-radius: 3px;
+        padding: 5px;
+        display: flex;
+        width: 200px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu:hover {
+        padding: 7px;
+      }
+
+      .danger {
+        background-color: red;
+        border: 1px solid red;
+      }
+
+      a {
+        color: black !important;
+        text-decoration: none !important;
+        font-family: 'Courier New', Courier, monospace !important;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      img {
+        border-radius: 3px;
+        box-shadow: 0;
+      }
+
+      img:hover {
+        box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.517);
+      }
+
+      .menu-div {
+        display: flex;
+        height: 130px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .blur {
+        width: 80px;
+        border: 1px solid black;
+        border-radius: 3px;
+        background-color: black;
+        color: white;
+        text-transform: uppercase;
+        padding: 5px;
+      }
+      
+      .blur:hover {
+        border: 1px solid white;
+        background-color: white;
+        color: black;
+        padding: 7px;
+      }
+
+
+    </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,16 +117,22 @@
     <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css" />
     <script src="https://unpkg.com/jcrop"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>Editar foto {{ pic.id }}</title>
   </head>
   <body>
-    <a href="{% url 'display_pics' %}"> << Atrás </a>
+    <br>
+    <br>
+    <a href="{% url 'display_pics' %}"> < < Atrás </a>
     FOTO {{ pic.id }}
+    <br>
+    <br>
     <br />
     <img src="{{ pic.file.url }}" id="target" />
     <br />
 
-    <button id="blur">Blur</button>
+    <button class="blur" id="blur">Blur</button>
   </body>
   <script defer>
     let info;

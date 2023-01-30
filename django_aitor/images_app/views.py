@@ -80,7 +80,7 @@ def blur(request, id):
         w = int(coord['w'])
         h = int(coord['h'])
         region = img.crop((x, y, x + w, y + h))
-        for i in range(0, 20):
+        for i in range(0, 40):
             region = region.filter(ImageFilter.BLUR)
         img.paste(region, (x, y, x + w, y + h))
 

@@ -1,6 +1,93 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <style>
+      body {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: antiquewhite;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .formulario {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        height: 200px;
+        margin-bottom: 100px;
+        font-size: 1.3rem;
+      }
+
+      .submit {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 5px;
+        
+      }
+
+      .submit:hover {
+        cursor: pointer;
+        padding: 7px;
+      }
+
+      input[type=file] {
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .menu {
+        border: 1px solid black;
+        background-color: black;
+        border-radius: 3px;
+        padding: 5px;
+        display: flex;
+        width: 200px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu:hover {
+        padding: 7px;
+      }
+
+      .danger {
+        background-color: red;
+        border: 1px solid red;
+      }
+
+      a {
+        color: black !important;
+        text-decoration: none !important;
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      img {
+        border-radius: 3px;
+        box-shadow: 0;
+      }
+
+      img:hover {
+        box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.517);
+      }
+
+      .menu-div {
+        display: flex;
+        height: 130px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+      }
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +98,10 @@
   </head>
   <body class="container " style="padding-top: 5%;">
     <div class="row">
-      <a href="{% url 'index' %}">Go back</a>
+      <a href="{% url 'index' %}"> < < Go back</a>
+      <br>
+      <br>
+      <br>
         {% for x in context %}
         <div class="col-md-4">
           <div class="thumbnail">
