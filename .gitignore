@@ -1,7 +1,7 @@
 # General
-*.log
-*.pdf
-*.png
+# *.log
+# *.pdf
+# *.png
 
 # IDE
 .idea/ # PyCharm settings
