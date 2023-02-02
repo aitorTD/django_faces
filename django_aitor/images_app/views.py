@@ -8,6 +8,8 @@ import json
 from django.middleware.csrf import get_token
 from PIL import Image, ImageFilter
 from django.core.cache import cache
+from django.db.models.fields.files import ImageFieldFile
+import os
 
 
 def index(request):
@@ -68,10 +70,10 @@ def usa_ajax(request):
 def blur(request, id):
     image = Images.objects.get(id = id)
     path = image.file.path
-    #print('IMAGE.FILE.PATH -------------------- ', image.file.path)
+    # print('IMAGE.FILE.PATH -------------------- ', image.bluredfile.path)
     #print('IMAGE.FILE.URL -------------------- ', image.file.url)
     csrf_token = get_token(request)
-    img = Image.open(image.file.path)
+    img = Image.open(path)
     body = json.loads(request.body)
     coords = body.get('coords')
     for coord in coords:
@@ -85,7 +87,13 @@ def blur(request, id):
         img.paste(region, (x, y, x + w, y + h))
 
     #print('IMAGE.FILE.PATH -------------------- ', path)
-    img.save(path)
-    #print('SAVED')
+    extension = os.path.splitext(path)[1]
+    len_extension = len(extension)
 
-    return redirect(request, 'images_app/pic.html', {'pic': image, 'csrf_token': csrf_token})
+    path = path[:-len_extension] + '-blured' + path[-len_extension:]
+    img.save(path)
+    image.bluredfile = ImageFieldFile(image, image.bluredfile, path) 
+    image.save()
+    #print('------------------------------------------- SAVED')
+
+    return render(request, 'images_app/pic.html', {'pic': image, 'csrf_token': csrf_token})

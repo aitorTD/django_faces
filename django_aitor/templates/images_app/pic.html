@@ -109,10 +109,10 @@
 
 
     </style>
+    <meta name="csrf-token" content="{{ csrf }}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css" />
     <script src="https://unpkg.com/jcrop"></script>
@@ -129,8 +129,15 @@
     <br>
     <br>
     <br />
-    <img src="{{ pic.file.url }}" id="target" />
-    <br />
+
+    {% if pic.bluredfile %}
+      <img src="{{ pic.bluredfile.url }}" />
+      <br>
+      <br>
+    {% endif %}
+      <img src="{{ pic.file.url }}" id="target" />
+      <br />
+    
 
     <button class="blur" id="blur">Blur</button>
   </body>
@@ -173,18 +180,19 @@
               'Content-Type': 'application/json'
           }
       };
-      fetch(`/blur/${id}`, options)
+      return fetch(`/blur/${id}`, options)
   }
 
 
-    $("#blur").click(function () {
+    $("#blur").click(async () => {
       let crops = jcrop.crops;
       const coords = []
       crops.forEach((crop) => {
         coords.push({x: crop.pos.x, y: crop.pos.y, w: crop.pos.w, h: crop.pos.h})
       });
       // console.log(coords);
-      send(coords);
+      await send(coords);
+      window.location.reload();
     });
   </script>
 </html>

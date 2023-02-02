@@ -131,7 +131,8 @@
       <div>Cariño, le he hecho <span class="title-blur">BLUR</span> a LOS NIÑOS<span class="com">.com</span> </div>
     </div>
     <form method="post" enctype="multipart/form-data" class="formulario">
-      {% csrf_token %} {{ form }}
+      {% csrf_token %} 
+      {{ form }}
       <input class="submit" type="submit" value="Upload" />
     </form>
     <div class="menu-div">
